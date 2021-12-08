@@ -1,12 +1,12 @@
 import { GET_FAIL, GET_SUCCESS,GET_START } from "../actions";
 
-export const initialState = {
-    facts:"",
+ const initialState = {
+    pokemon:[],
     isGetting:false,
     error:null
 }
 
-const reducer = ( state= initialState, action ) => {
+const reducer = ( state = initialState, action ) => {
     switch(action.type){
         case(GET_START):
         return ({
@@ -16,8 +16,9 @@ const reducer = ( state= initialState, action ) => {
         case(GET_SUCCESS):
         return({
             ...state,
+            pokemon:action.payload,
             isGetting:false,
-            facts:action.payload
+            facts:null
         })
         case(GET_FAIL):
         return({
