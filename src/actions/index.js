@@ -4,28 +4,28 @@ export const GET_START = "GET_START";
 export const GET_SUCCESS = "GET_SUCCESS";
 export const GET_FAIL ="GET_FAIL";
 
-export const getPokemon = () => {
-    return dispatch => {
-        dispatch({ type:GET_START})
-        axios
-        .get("https://pokeapi.co/api/v2/pokemon/")
-        .then( res => {
-            console.log(res.data.results);
-            dispatch({type:GET_SUCCESS, payload:res.data.results})
-            
+export const getGifs = ( searchTerm ) => {
+    return ( dispatch ) => {
+        dispatch(getStart());
+        axios.get(`https://api.giphy.com/v1/gifs/search?api_key=eF68i1SpJhoVnYQRTDKYcXdtpZlGeJDP&q=${searchTerm}`)
+        .then(res => {
+            dispatch(getSuccess(res.data.data));
         })
-        .catch(err => {dispatch({type:GET_FAIL,payload:err.error})})
+        .catch(error => {
+            dispatch(getFailure(error.message))
+        })
     }
 }
 
-export const getPokemonStart = () => {
+
+export const getStart = () => {
     return({type:GET_START})
 }
 
-export const getPokemonSuccess = (pokemon) => {
-    return({type:GET_SUCCESS, payload:pokemon})
+export const getSuccess = (gifs) => {
+    return({type:GET_SUCCESS, payload:gifs})
 }
 
-export const getPokemonFail = (err) => {
+export const getFailure = (err) => {
     return ({type:GET_FAIL, payload:err})
 }

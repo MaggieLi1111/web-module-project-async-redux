@@ -5,10 +5,11 @@ import App from './App';
 import './index.css';
 
 import { createStore, applyMiddleware } from "redux"
-import logger from "redux-logger"
 import { Provider } from "react-redux"
-import thunk from "redux-thunk"
 import reducer from "./reducer/index"
+import logger from "redux-logger"
+import thunk from "redux-thunk"
+
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 
